@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Singleton_Design_Odev" />
         <module name="Singleton_Design_Pattern_Odev" />
       </profile>
     </annotationProcessing>
