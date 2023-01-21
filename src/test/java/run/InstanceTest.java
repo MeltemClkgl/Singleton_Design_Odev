@@ -2,43 +2,47 @@ package run;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.*;
-
-import singleton_driver.SingletonClass;
+import org.testng.asserts.SoftAssert;
 
 public class InstanceTest {
+
     private static WebDriver driver;
+    SoftAssert softAssert;
+
+    @BeforeClass
+    void setUpForClass() {
+        softAssert = new SoftAssert();
+    }
 
     @BeforeMethod
-    public static void setup(){
-        driver= WebDriverManager.edgedriver().create();
-        SingletonClass.getSingletonClass();
-        SingletonClass.getDriver();
-
-        System.out.println("SingletonDriver being tested " + driver);
+    void setUp() {
+        driver = WebDriverManager.edgedriver().create();
+        driver.get("https://www.google.com");
     }
+
     @Test
-    public static void test01(){
+    void method01() {
+        String expectedTitle = "Google";
+        String actualTitle = driver.getTitle();
 
-        String expectedTitle="google";
-        String actualTitle= driver.getTitle();
-
-        Assert.assertEquals(expectedTitle,actualTitle);
-        Assert.assertEquals(expectedTitle,actualTitle,"Expected title is matching to actual title");
-
-        Assert.assertTrue(expectedTitle.equals(actualTitle));
-        Assert.assertTrue(expectedTitle.equals(actualTitle),"Expected title is not matching to actual title");
+        softAssert.assertEquals(actualTitle, expectedTitle);
 
 
-        System.out.println("----- Test actual performing ----");
+        expectedTitle = "Google";
+
+        softAssert.assertEquals(actualTitle, expectedTitle, "Expected title is not matching to actual title");
+
+        softAssert.assertTrue(expectedTitle.equals(actualTitle));
+        softAssert.assertTrue(expectedTitle.equals(actualTitle), "Expected title is not matching to actual title");
+
+        System.out.println("method01()done !!!");
     }
 
-    @AfterTest
-    public static void tearDown(){
-        System.out.println("Test passed");
-    }
-    public static WebDriver getDriver(){
-        return driver;
+
+    @AfterMethod
+    void afterClass() {
+
+        softAssert.assertAll();
     }
 }
