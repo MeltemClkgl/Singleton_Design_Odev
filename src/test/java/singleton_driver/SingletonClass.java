@@ -7,7 +7,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 public class SingletonClass {
 
     static private WebDriver driver;
-    static private SingletonClass singletonClass;
+    static private SingletonClass singletonClass=new SingletonClass();
 
     private SingletonClass()
     {
@@ -24,6 +24,13 @@ public class SingletonClass {
     }
     static public WebDriver getDriver(){
         return driver;
+    }
+
+    static public void closeDriver(){
+        if(!(driver==null)){
+            driver.quit();
+            driver=null;
+        }
     }
 
 

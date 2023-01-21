@@ -18,7 +18,7 @@ public class InstanceTest {
     @BeforeMethod
     void setUp() {
         driver = WebDriverManager.edgedriver().create();
-        driver.get("https://www.google.com");
+        driver.get(Constants.URL);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class InstanceTest {
         softAssert.assertTrue(expectedTitle.equals(actualTitle));
         softAssert.assertTrue(expectedTitle.equals(actualTitle), "Expected title is not matching to actual title");
 
-        System.out.println("method01()done !!!");
+        System.out.println("method01 done !!!");
     }
 
 
